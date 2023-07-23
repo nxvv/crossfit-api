@@ -2,11 +2,15 @@
 
 namespace App\Services;
 
+use App\Http\Resources\WorkoutCollection;
+use App\Models\Workout;
+
+
 class WorkoutService {
 
-    public function index():void
+    public function index()
     {
-        return;
+        return new WorkoutCollection(Workout::all());
     }
 
     public function create()

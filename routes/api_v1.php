@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\TestController;
+// use App\Http\Controllers\TestController;
 use App\Http\Controllers\WorkoutController;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('workouts')->group(function () {
 
     Route::get('/', [WorkoutController::class, 'index']);
-    Route::get('/{workoutId}', [WorkoutController::class, '']);
-    Route::post('/', [WorkoutController::class, '']);
-    Route::patch('/{workoutId}', [WorkoutController::class, '']);
-    Route::delete('/{workoutId}', [WorkoutController::class, '']);
+    // Route::get('/{workoutId}', [WorkoutController::class, '']);
+    // Route::post('/', [WorkoutController::class, '']);
+    // Route::patch('/{workoutId}', [WorkoutController::class, '']);
+    // Route::delete('/{workoutId}', [WorkoutController::class, '']);
 
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

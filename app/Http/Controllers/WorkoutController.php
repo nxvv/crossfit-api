@@ -10,7 +10,7 @@ class WorkoutController extends Controller
     public function index(WorkoutService $workoutService)
     {
         $workoutServices = $workoutService->index();
-        return response('Get all workouts.', 200);
+        return $workoutServices;
     }
 
     public function create()
