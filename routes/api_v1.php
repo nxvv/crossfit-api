@@ -22,7 +22,7 @@ Route::prefix('workouts')->group(function () {
 
     Route::get('/', [WorkoutController::class, 'index']);
     // Route::get('/{workoutId}', [WorkoutController::class, '']);
-    // Route::post('/', [WorkoutController::class, '']);
+    Route::post('/', [WorkoutController::class, 'create']);
     // Route::patch('/{workoutId}', [WorkoutController::class, '']);
     // Route::delete('/{workoutId}', [WorkoutController::class, '']);
 

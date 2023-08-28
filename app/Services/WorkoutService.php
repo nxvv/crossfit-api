@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Resources\WorkoutCollection;
+use App\Http\Resources\WorkoutResource;
 use App\Models\Workout;
 
 
@@ -13,9 +14,10 @@ class WorkoutService {
         return new WorkoutCollection(Workout::all());
     }
 
-    public function create()
+    public function create(Array $newWorkout)
     {
-        return;
+        $workout = Workout::create($newWorkout);
+        return new WorkoutResource($workout);
     }
 
     public function show()

@@ -9,6 +9,14 @@ class Workout extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'mode',
+        'equipment',
+        'exercises',
+        'trainerTips'
+    ];
+
     protected $casts = [
         'equipment' => 'array',
         'exercises' => 'array',
