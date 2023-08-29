@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Http\Resources\WorkoutCollection;
 use App\Http\Resources\WorkoutResource;
 use App\Models\Workout;
-
+use Illuminate\Http\Request;
 
 class WorkoutService {
 
@@ -20,14 +20,15 @@ class WorkoutService {
         return new WorkoutResource($workout);
     }
 
-    public function show()
+    public function show(Workout $workout)
     {
-        return;
+        return new WorkoutResource($workout);
     }
 
-    public function update()
+    public function update(Request $request, Workout $workout)
     {
-        return;
+        $workout->update($request->input());
+        return new WorkoutResource($workout);
     }
 
     public function delete()

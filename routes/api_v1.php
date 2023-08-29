@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('workouts')->group(function () {
 
     Route::get('/', [WorkoutController::class, 'index']);
-    // Route::get('/{workoutId}', [WorkoutController::class, '']);
+    Route::get('/{workout}', [WorkoutController::class, 'show']);
     Route::post('/', [WorkoutController::class, 'create']);
-    // Route::patch('/{workoutId}', [WorkoutController::class, '']);
+    Route::patch('/{workout}', [WorkoutController::class, 'update']);
     // Route::delete('/{workoutId}', [WorkoutController::class, '']);
 
 });

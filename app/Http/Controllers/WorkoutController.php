@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Workout;
 use Illuminate\Http\Request;
 use App\Services\WorkoutService;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +19,7 @@ class WorkoutController extends Controller
     public function create(WorkoutService $workoutService, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|unique:workouts',
             'mode' => 'required',
             'equipment' => 'required',
             'exercises' => 'required',
@@ -37,13 +38,16 @@ class WorkoutController extends Controller
         return $newWorkout;
     }
 
-    public function show()
+    public function show(WorkoutService $workoutService, Workout $workout)
     {
-
+        $workout = $workoutService->show($workout);
+        return $workout;
     }
 
-    public function update()
+    public function update(WorkoutService $workoutService, Request $request, Workout $workout)
     {
+        $workout = $workoutService->update($request, $workout);
+        return $workout;
 
     }
 
