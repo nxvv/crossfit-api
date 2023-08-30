@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\WorkoutService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\JsonResponse as HttpFoundationJsonResponse;
 
 class WorkoutController extends Controller
 {
