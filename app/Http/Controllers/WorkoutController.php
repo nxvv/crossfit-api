@@ -51,8 +51,9 @@ class WorkoutController extends Controller
 
     }
 
-    public function delete()
+    public function delete(WorkoutService $workoutService, Workout $workout)
     {
-
+        $workoutService->delete($workout);
+        return response('OK', 204);
     }
 }

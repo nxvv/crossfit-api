@@ -24,7 +24,7 @@ Route::prefix('workouts')->group(function () {
     Route::get('/{workout}', [WorkoutController::class, 'show']);
     Route::post('/', [WorkoutController::class, 'create']);
     Route::patch('/{workout}', [WorkoutController::class, 'update']);
-    // Route::delete('/{workoutId}', [WorkoutController::class, '']);
+    Route::delete('/{workout}', [WorkoutController::class, 'delete']);
 
 });
 

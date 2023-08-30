@@ -31,9 +31,9 @@ class WorkoutService {
         return new WorkoutResource($workout);
     }
 
-    public function delete()
+    public function delete(Workout $workout)
     {
-        return;
+        $workout->delete();
     }
 
 }
