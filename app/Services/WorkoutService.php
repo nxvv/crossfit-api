@@ -6,34 +6,55 @@ use App\Http\Resources\WorkoutCollection;
 use App\Http\Resources\WorkoutResource;
 use App\Models\Workout;
 use Illuminate\Http\Request;
+use Exception;
 
 class WorkoutService {
 
     public function index()
     {
-        return new WorkoutCollection(Workout::all());
+        try {
+            return new WorkoutCollection(Workout::all());
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function create(Array $newWorkout)
     {
-        $workout = Workout::create($newWorkout);
-        return new WorkoutResource($workout);
+        try {
+            $workout = Workout::create($newWorkout);
+            return new WorkoutResource($workout);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function show(Workout $workout)
     {
-        return new WorkoutResource($workout);
+        try {
+            return new WorkoutResource($workout);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function update(Request $request, Workout $workout)
     {
-        $workout->update($request->input());
-        return new WorkoutResource($workout);
+        try {
+            $workout->update($request->input());
+            return new WorkoutResource($workout);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function delete(Workout $workout)
     {
-        $workout->delete();
+        try {
+            $workout->delete();
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
 }

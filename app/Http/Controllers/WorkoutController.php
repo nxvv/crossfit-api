@@ -8,13 +8,24 @@ use App\Services\WorkoutService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse as HttpFoundationJsonResponse;
+use Exception;
 
 class WorkoutController extends Controller
 {
     public function index(WorkoutService $workoutService)
     {
-        $workouts = $workoutService->index();
-        return $workouts;
+        try {
+            $workouts = $workoutService->index();
+            return $workouts;
+        } catch (Exception $e) {
+            $response = [
+                'status' => 'FAILED',
+                'data' => [
+                    'error' => $e->getMessage()
+                ]
+            ];
+            return response($response, 500);
+        }
     }
 
     public function create(WorkoutService $workoutService, Request $request)
@@ -35,26 +46,65 @@ class WorkoutController extends Controller
             return response($response, 400);
         }
 
-        $newWorkout = $workoutService->create($request->input());
-        return $newWorkout;
+        try {
+            $newWorkout = $workoutService->create($request->input());
+            return $newWorkout;
+        } catch (Exception $e) {
+            $response = [
+                'status' => 'FAILED',
+                'data' => [
+                    'error' => $e->getMessage()
+                ]
+            ];
+            return response($response, 500);
+        }
     }
 
     public function show(WorkoutService $workoutService, Workout $workout)
     {
-        $workout = $workoutService->show($workout);
-        return $workout;
+        try {
+            $workout = $workoutService->show($workout);
+            return $workout;
+        } catch (Exception $e) {
+            $response = [
+                'status' => 'FAILED',
+                'data' => [
+                    'error' => $e->getMessage()
+                ]
+            ];
+            return response($response, 500);
+        }
     }
 
     public function update(WorkoutService $workoutService, Request $request, Workout $workout)
     {
-        $workout = $workoutService->update($request, $workout);
-        return $workout;
-
+        try {
+            $workout = $workoutService->update($request, $workout);
+            return $workout;
+        } catch (Exception $e) {
+            $response = [
+                'status' => 'FAILED',
+                'data' => [
+                    'error' => $e->getMessage()
+                ]
+            ];
+            return response($response, 500);
+        }
     }
 
     public function delete(WorkoutService $workoutService, Workout $workout)
     {
-        $workoutService->delete($workout);
-        return response('OK', 204);
+        try {
+            $workoutService->delete($workout);
+            return response('OK', 204);
+        } catch (Exception $e) {
+            $response = [
+                'status' => 'FAILED',
+                'data' => [
+                    'error' => $e->getMessage()
+                ]
+            ];
+            return response($response, 500);
+        }
     }
 }
