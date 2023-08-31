@@ -40,8 +40,10 @@ class WorkoutController extends Controller
 
         if ($validator->fails()) {
             $response = [
-                'message' => 'Something went wrong.',
-                'errors' => $validator->errors()
+                'status' => 'FAILED',
+                'data' => [
+                    'errors' => $validator->errors()
+                ]
             ];
             return response($response, 400);
         }
