@@ -10,10 +10,15 @@ use Exception;
 
 class WorkoutService {
 
-    public function index()
+    public function index(array $filterParams)
     {
         try {
-            return new WorkoutCollection(Workout::all());
+            if($filterParams['mode']){
+                $workouts = Workout::where('mode', 'LIKE', '%'.$filterParams['mode'].'%')->get();
+            }else{
+                $workouts = Workout::all();
+            }
+            return new WorkoutCollection($workouts);
         } catch (Exception $e) {
             throw $e;
         }

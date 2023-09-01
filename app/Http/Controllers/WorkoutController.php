@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 use App\Services\WorkoutService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpFoundation\JsonResponse as HttpFoundationJsonResponse;
 use Exception;
 
 class WorkoutController extends Controller
 {
-    public function index(WorkoutService $workoutService)
+    public function index(Request $request, WorkoutService $workoutService)
     {
         try {
-            $workouts = $workoutService->index();
+            $filterParams = $request->input();
+            $workouts = $workoutService->index($filterParams);
             return $workouts;
         } catch (Exception $e) {
             $response = [
