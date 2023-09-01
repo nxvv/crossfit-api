@@ -13,7 +13,7 @@ class WorkoutService {
     public function index(array $filterParams)
     {
         try {
-            if($filterParams['mode']){
+            if(isset($filterParams['mode'])){
                 $workouts = Workout::where('mode', 'LIKE', '%'.$filterParams['mode'].'%')->get();
             }else{
                 $workouts = Workout::all();
