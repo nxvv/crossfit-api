@@ -13,8 +13,18 @@ class WorkoutController extends Controller
     public function index(Request $request, WorkoutService $workoutService)
     {
         try {
+
+            $validator = Validator::make($request->all(), [
+                'length' => 'integer',
+            ]);
+
+            if ($validator->fails()) {
+                throw new Exception("length parameter must of type integer.", 400);
+            }
+
             $filterParams = $request->input();
             $workouts = $workoutService->index($filterParams);
+
             return $workouts;
         } catch (Exception $e) {
             $response = [
@@ -23,7 +33,7 @@ class WorkoutController extends Controller
                     'error' => $e->getMessage()
                 ]
             ];
-            return response($response, 500);
+            return response($response, $e->getCode());
         }
     }
 

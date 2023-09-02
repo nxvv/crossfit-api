@@ -23,6 +23,10 @@ class WorkoutService {
                 $workout->whereJsonContains('equipment', $filterParams['equipment']);
             }
 
+            if(isset($filterParams['length'])){
+                $workout->take((int)$filterParams['length']);
+            }
+
             return new WorkoutCollection($workout->get());
         } catch (Exception $e) {
             throw $e;
