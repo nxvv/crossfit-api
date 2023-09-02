@@ -13,12 +13,17 @@ class WorkoutService {
     public function index(array $filterParams)
     {
         try {
+            $workout = (new Workout)->newQuery();
+
             if(isset($filterParams['mode'])){
-                $workouts = Workout::where('mode', 'LIKE', '%'.$filterParams['mode'].'%')->get();
-            }else{
-                $workouts = Workout::all();
+                $workout->where('mode', 'LIKE', '%'.$filterParams['mode'].'%');
             }
-            return new WorkoutCollection($workouts);
+
+            if(isset($filterParams['equipment'])){
+                $workout->whereJsonContains('equipment', $filterParams['equipment']);
+            }
+
+            return new WorkoutCollection($workout->get());
         } catch (Exception $e) {
             throw $e;
         }
