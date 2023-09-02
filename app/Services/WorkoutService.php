@@ -27,7 +27,7 @@ class WorkoutService {
                 $workout->take((int)$filterParams['length']);
             }
 
-            return new WorkoutCollection($workout->get());
+            return new WorkoutCollection($workout->paginate(5));
         } catch (Exception $e) {
             throw $e;
         }
