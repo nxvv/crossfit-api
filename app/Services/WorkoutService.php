@@ -13,6 +13,7 @@ class WorkoutService {
     public function index(array $filterParams)
     {
         try {
+            $length = 5;
             $workout = (new Workout)->newQuery();
 
             if(isset($filterParams['mode'])){
@@ -23,11 +24,23 @@ class WorkoutService {
                 $workout->whereJsonContains('equipment', $filterParams['equipment']);
             }
 
-            if(isset($filterParams['length'])){
-                $workout->take((int)$filterParams['length']);
+            if(isset($filterParams['sort'])){
+                $sortParam = $filterParams['sort'];
+                if($sortParam[0] == "-"){
+                    // Remove "-" character before db request
+                    $sortParam = explode("-", $sortParam)[1];
+                    $workout->orderByDesc($sortParam);
+                }else{
+                    // No need to remove character
+                    $workout->orderBy($sortParam);
+                }
             }
 
-            return new WorkoutCollection($workout->paginate(5));
+            if(isset($filterParams['length'])){
+                $length = $filterParams['length'];
+            }
+
+            return new WorkoutCollection($workout->paginate($length));
         } catch (Exception $e) {
             throw $e;
         }

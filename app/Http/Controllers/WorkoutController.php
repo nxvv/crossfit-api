@@ -7,19 +7,32 @@ use Illuminate\Http\Request;
 use App\Services\WorkoutService;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use Illuminate\Validation\Rule;
 
 class WorkoutController extends Controller
 {
     public function index(Request $request, WorkoutService $workoutService)
     {
         try {
+            // We assume that string preceeded by "-" character stands for orderByDesc
+            $sortingColumns = [
+                'name', 'mode', 'equipment', 'exercises', 'trainerTips', 'created_at', 'updated_at',
+                '-name', '-mode', '-equipment', '-exercises', '-trainerTips', '-created_at', '-updated_at',
+            ];
 
             $validator = Validator::make($request->all(), [
                 'length' => 'integer',
+                'sort' => Rule::in($sortingColumns)
             ]);
 
             if ($validator->fails()) {
-                throw new Exception("length parameter must of type integer.", 400);
+                $response = [
+                    'status' => 'FAILED',
+                    'data' => [
+                        'errors' => $validator->errors()
+                    ]
+                ];
+                return response($response, 400);
             }
 
             $filterParams = $request->input();
